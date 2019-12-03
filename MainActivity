@@ -1,0 +1,130 @@
+package com.example.editabletipcalculator;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.SeekBar;
+
+public class MainActivity extends AppCompatActivity {
+
+    // Object references to UI controls
+    private EditText beginBillValue;
+    private TextView tipPercentValue;
+    private TextView tipDollarValue;
+    private TextView endBillValue;
+    private SeekBar tipSlider;
+
+    // Store tip percent value
+    private int m;
+
+    private float beginBillValueVariable;
+    private float tipPercentageValueVariable;
+    private float tipCalculatedValueVariable;
+    private float endBillValueVariable;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Assign external interface components
+        beginBillValue = (EditText)findViewById(R.id.begin_bill_value);
+
+        String tmp = beginBillValue.getText().toString();
+        if(!tmp.isEmpty())
+        {
+            beginBillValueVariable = Float.parseFloat(tmp);
+        }
+        else
+        {
+            beginBillValueVariable = 0.0f;
+        }
+
+        tipPercentValue = (TextView) findViewById(R.id.tip_percentage_value);
+        tipDollarValue = (TextView) findViewById(R.id.tip_dollar_value);
+        endBillValue = (TextView) findViewById(R.id.end_bill_value);
+        tipSlider = (SeekBar) findViewById(R.id.seekBar);
+
+        // Initialize tip percentage, tip amount, end bill total
+
+        tipSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                m = i;
+
+                // Set tip value text
+                tipPercentValue.setText(Integer.toString(m));
+
+                // Update tip amount and total bill fields
+                UpdateTip();
+
+                UpdateEndBillValue();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+    }
+
+    private void UpdateTip()
+    {
+        // Set tip dollar value text (BeginningBillValue / 100 + BeginningBillValue)
+       //Float flt = tipPercentValue;
+        //endBillValue.setText( flt );
+
+       //tipDollarValue.setText(Float.toString((m * 2)));
+
+        String tmp = beginBillValue.getText().toString();
+        if(!tmp.isEmpty())
+        {
+            beginBillValueVariable = Float.parseFloat(tmp);
+        }
+        else
+        {
+            beginBillValueVariable = 0.0f;
+        }
+        float result = beginBillValueVariable * (m * 0.01f);
+        tipDollarValue.setText( Float.toString(result));
+    }
+
+    private void UpdateEndBillValue()
+    {
+        // Set total amount (beginning + tip)
+
+        String tmp = beginBillValue.getText().toString();
+        if(!tmp.isEmpty())
+        {
+            beginBillValueVariable = Float.parseFloat(tmp);
+        }
+        else
+        {
+            beginBillValueVariable = 0.0f;
+        }
+        float result = beginBillValueVariable + ((m * 0.01f)*100);
+        endBillValue.setText(Float.toString((result)));
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i(getClass().getSimpleName(), "onSaveInstanceState");
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.i(getClass().getSimpleName(), "onRestoreInstanceState");
+    }
+}
