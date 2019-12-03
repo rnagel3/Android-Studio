@@ -1,0 +1,10 @@
+<resources>
+    <string name="beginning_bill_amount">Enter Bill (include tax)</string>
+    <string name="tip_percentage">Tip Percentage</string>
+    <string name="tip_amount">Tip Amount</string>
+    <string name="bill_total">Final Bill Amount</string>
+    <string name="reset">Reset</string>
+    <string name="tip_amount_numeric_value">$5</string>
+    <string name="app_name">Editable Tip Calculator</string>
+    <string name="tip_percentage_value">10-25%</string>
+</resources>
